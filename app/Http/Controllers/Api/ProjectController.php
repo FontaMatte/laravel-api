@@ -12,7 +12,22 @@ class ProjectController extends Controller
 {
     public function index() 
     {
-        $projects = Project::with('type','technologies')->get();
+        $projectPerPage = 10;
+        
+        // gestisco dinamicamente tramite input qiuanti risulati voglio vedere per pagina
+        // N.B. meglio aggiungere un controllo sull'input
+
+        if (request()->input('per_page')) {
+            $projectPerPage = request()->input('per_page');
+        }
+
+        $projects = Project::with('type','technologies')->paginate($projectPerPage);
+
+        foreach ($projects as $project) {
+            if ($project->img) {
+                $project->img = asset('storage/' .$project->img);
+            }
+        }
         
         return response()->json([
             'success' => true,
