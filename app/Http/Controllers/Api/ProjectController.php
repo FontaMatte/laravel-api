@@ -12,7 +12,7 @@ class ProjectController extends Controller
 {
     public function index() 
     {
-        $projectPerPage = 10;
+        $projectPerPage = 12;
         
         // gestisco dinamicamente tramite input qiuanti risulati voglio vedere per pagina
         // N.B. meglio aggiungere un controllo sull'input

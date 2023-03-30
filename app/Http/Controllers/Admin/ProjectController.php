@@ -15,6 +15,7 @@ use App\Models\Technology;
 // Helpers
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 // Mail
 use App\Mail\NewProject;
@@ -61,6 +62,8 @@ class ProjectController extends Controller
             $data['img'] = $imgPath;
         }
         
+        $data['slug'] = Str::slug($data['title']);
+
         $newProject = Project::create($data);
 
         if (array_key_exists('technologies', $data)) {
@@ -127,6 +130,8 @@ class ProjectController extends Controller
                 Storage::delete($project->img);
             }
         }
+
+        $data['slug'] = Str::slug($data['title']);
 
         $project->update($data);
 

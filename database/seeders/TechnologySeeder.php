@@ -8,6 +8,9 @@ use Illuminate\Database\Seeder;
 // Model
 use App\Models\Technology;
 
+// Helpers
+use Illuminate\Support\Str;
+
 class TechnologySeeder extends Seeder
 {
     /**
@@ -27,7 +30,8 @@ class TechnologySeeder extends Seeder
 
         foreach ($technologies as $technology) {
             $newType = Technology::create([
-                'name' => $technology
+                'name' => $technology,
+                'slug' => Str::slug($technology)
             ]);
         }
     }
