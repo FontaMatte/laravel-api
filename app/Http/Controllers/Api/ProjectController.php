@@ -41,12 +41,25 @@ class ProjectController extends Controller
     {
         $project = Project::where('slug', $slug)->with('type', 'technologies')->first();
 
-        return response()->json([
-            'success' => true,
-            'code' => 200,
-            'message' => 'Ok',
-            'project' => $project
-        ]);
+        if ($project->img) {
+            $project->img = asset('storage/' .$project->img);
+        }
+
+        if ($project) {
+            return response()->json([
+                'success' => true,
+                'code' => 200,
+                'message' => 'Ok',
+                'project' => $project
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'code' => 404,
+                'message' => 'Not Found'
+            ]);
+        }
+        
     }
 }
 
